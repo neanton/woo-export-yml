@@ -267,14 +267,16 @@ class WooExportYmlApi
 		}
 	}
 
-	/*
-		Выгружает валюту в YML формате
-	*/
-	final public function renderCurrency(){
+	/**
+	 * Выгружает валюту в YML формате
+	 *
+	 * @return string
+	 */
+	final public function renderCurrency() {
 
-		$yml = '<currency id="'.apply_filters( 'woocommerce_currency', get_option('woocommerce_currency') ).'" rate="1"/>';
+		$yml = '<currency id="' . get_woocommerce_currency() . '" rate="1"/>';
 
-		$yml = apply_filters( $this->id.'_render_currency', $yml );
+		$yml = apply_filters( $this->id . '_render_currency', $yml );
 
 		return $yml;
 	}
@@ -426,7 +428,7 @@ class WooExportYmlApi
 		$params = array(
 			'url' 			=> WooExportYmlFunctions::sanitize(urldecode( esc_attr($product->get_permalink()) )),
 			'price' 		=> $product->get_price(),
-			'currencyId'	=> 'RUR',
+			'currencyId'	=> get_woocommerce_currency(),
 			'categoryId' 	=> $cat,
 			'picture' 		=> $pictures,
 			'store'			=> ( $this->isdeliver and !$this->cpa  ) ? $this->isstore : '',

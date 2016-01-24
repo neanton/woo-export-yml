@@ -49,7 +49,7 @@ class WC_Settings_Export_YML extends WC_Settings_Page {
 
 		?>
 		<table id="filter_settings">
-		<? if( $tax ): ?>
+		<?php if( $tax ): ?>
 		<?php foreach ($tax as $attr): 
 
 			$values = get_terms(wc_attribute_taxonomy_name($attr->attribute_name));
@@ -67,21 +67,19 @@ class WC_Settings_Export_YML extends WC_Settings_Page {
 			<td>
 				<select multiple="multiple" style="width:300px" name="<?=$value['id']?>[<?php echo wc_attribute_taxonomy_name($attr->attribute_name); ?>][]">
 					<option value="notfiltered">Не фильтровать</option>
-					<? foreach ($values as $_term): ?>
-						<option value="<?=$_term->term_id?>" <? if( in_array( $_term->term_id,(array)$options[ wc_attribute_taxonomy_name($attr->attribute_name) ] ) ): ?> selected<? endif; ?> ><?=$_term->name?></option>
-					<? endforeach; ?>
+					<?php foreach ($values as $_term): ?>
+						<option value="<?=$_term->term_id?>" <?php if( in_array( $_term->term_id,(array)$options[ wc_attribute_taxonomy_name($attr->attribute_name) ] ) ): ?> selected<?php endif; ?> ><?=$_term->name?></option>
+					<?php endforeach; ?>
 				</select>
 
 			</td>
 			</tr>
 		<?php endforeach; ?>
-		<? else: ?>	
+		<?php else: ?>
 			<p>Пока свойств нет</p>
-		<? endif; ?>
+		<?php endif; ?>
 		</table>
-		<?
-
-	}
+		<?php }
 
 	public function save_filter_settings( $value ){
 
@@ -114,13 +112,11 @@ class WC_Settings_Export_YML extends WC_Settings_Page {
 
 			<input type="hidden" name="key_source" value="<?=$active?>">
 			<ul id="yml-sourcelist">
-				<? 
-				
-				foreach( $sources as $key => $name): ?>
-					<li <? if( $key == $active ): ?>class="active" <? endif; ?> >
+				<?php foreach( $sources as $key => $name): ?>
+					<li <?php if( $key == $active ): ?>class="active" <?php endif; ?> >
 						<a href="<?=admin_url('admin.php?page=wc-settings&tab=export_yml')?>&source=<?=$key?>"><?=$name?></a>
 					</li>			
-				<? endforeach; ?>
+				<?php endforeach; ?>
 				<li class="separate">|</li>
 			</ul>
 			<button id="add_source" class="button button-primary" type="submit">Добавить источник</button>
@@ -140,8 +136,7 @@ class WC_Settings_Export_YML extends WC_Settings_Page {
 		<hr>		
 
 
-		<?	
-	}
+		<?php }
 
 
 	/**
